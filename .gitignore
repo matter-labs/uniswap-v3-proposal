@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 *.pem
+cache
 
 # debug
 npm-debug.log*
@@ -31,3 +32,5 @@ yarn-error.log*
 .env.local
 .env.development
 .env.production
+
+Notes.md
