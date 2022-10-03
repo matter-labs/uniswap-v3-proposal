@@ -153,7 +153,28 @@ async function test() {
       `Proposal has been mined at blocknumber: ${txResponse.blockNumber}, transaction hash: ${txResponse.hash}`
     )
 
-    console.log('events :>> ', res.events[0].args)
+    // console.log('events :>> ', res.events[0].args)
+
+    // @ts-ignore
+    const event = res.events.find((event) => event.event === 'ProposalCreated')
+
+    const [
+      id,
+      sender,
+      targets,
+      values,
+      signatures,
+      calldatas,
+      startBlock,
+      endBlock,
+      description,
+    ] = event.args
+
+    console.log('Proposal id is :>> ', id)
+    console.log('Proposal description is :>> ', description)
+    console.log('Proposal startBlock is :>> ', startBlock)
+    console.log('Proposal endBlock is :>> ', endBlock)
+    console.log('Proposal sender is :>> ', sender)
 
     // mine  block
     await mineBlocks(1)
@@ -166,7 +187,7 @@ async function test() {
 
     // get proposal status. Proposal id is 25
     try {
-      let proposalStatus = await governorBravo.state(25)
+      let proposalStatus = await governorBravo.state(id.toNumber())
       console.log('Proposal Status :>>', proposalStatus)
     } catch (error) {
       console.error('Error getting state: ', error)
@@ -179,7 +200,7 @@ async function test() {
     try {
       const voteRes = await governorBravo
         .connect(impersonatedVoter)
-        .castVote(25, 1)
+        .castVote(id.toNumber(), 1)
       console.log('Cast Vote response :>> ', voteRes)
     } catch (error) {
       console.error('ERROR Voting: ', error)
@@ -187,18 +208,22 @@ async function test() {
 
     // mine blocks until endBlock
     await mineBlocks(40320)
-    const proposalStatusAfter = await governorBravo.state(25)
+    const proposalStatusAfter = await governorBravo.state(id.toNumber())
     console.log('Proposal status after enbBlock :>> ', proposalStatusAfter)
 
     // move into timelock period, proposal can only be queued if it is succeeded
-    const queue = await governorBravo.connect(impersonatedSigner).queue(25)
+    const queue = await governorBravo
+      .connect(impersonatedSigner)
+      .queue(id.toNumber())
     console.log('Response queue trx :>> ', queue)
 
     // mine blocks past Timelock period
     await mineBlocks(15000)
 
     // execute proposal
-    const exec = await governorBravo.connect(impersonatedSigner).execute(25)
+    const exec = await governorBravo
+      .connect(impersonatedSigner)
+      .execute(id.toNumber())
     console.log('Proposal executed :>> ', exec)
 
     console.log('End 🏁')
