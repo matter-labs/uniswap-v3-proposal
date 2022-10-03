@@ -1,3 +1,7 @@
+// load env file
+import dotenv from 'dotenv'
+dotenv.config()
+
 import { HardhatUserConfig } from 'hardhat/config'
 import '@nomicfoundation/hardhat-toolbox'
 
@@ -6,8 +10,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        // url: 'https://nd-212-519-633.p2pify.com/42aa1f97cf97620e4dfba56dc88a1fcf',
-        url: 'https://eth-mainnet.g.alchemy.com/v2/KpDxHiMSPDAda9LqFjyrZwKmO9dswM1b',
+        url: process.env.PROVIDER_RPC_URL || '',
         blockNumber: 15647465,
       },
     },
