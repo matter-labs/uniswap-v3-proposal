@@ -80,18 +80,34 @@ async function getImpersonatedSigner() {
 }
 
 /**
- * Mines blocks
+ * Mines a given number of blocks
  * @param n number of blocks to mine
  */
 async function mineBlocks(n: Number = 13140) {
+  console.log(`⛏ Mining ${n} blocks...`)
   for (let index = 0; index < n; index++) {
     await provider.send('evm_mine', [])
   }
+  console.log('Finished mining blocks')
+}
+
+/**
+ *
+ * @param s seconds to increase time
+ */
+async function increaseTime(s: Number = 60) {
+  console.log(`⏱ Moving time ${s} seconds...`)
+  for (let index = 0; index < s; index++) {
+    await provider.send('evm_increaseTime', [s])
+  }
+  console.log('Finished increasing time')
 }
 async function test() {
   try {
     /**
-     *  checks current block
+     * Full process:
+     *
+     * checks current block
      * checks number of proposals
      * submit proposal
      * move blocks
@@ -113,13 +129,14 @@ async function test() {
 
     const block = await provider.getBlockNumber()
     console.log('Initial block :>> ', block)
+
     const n_proposals = await governorBravo.proposalCount()
     console.log('Total number of proposals :>> ', n_proposals)
 
     let propsByAcc = await governorBravo.latestProposalIds(process.env.SIGNER)
     console.log('Proposals by signer :>> ', propsByAcc)
 
-    // send proposal
+    // submit proposal
     const txResponse = await governorBravo
       .connect(impersonatedSigner)
       .propose(
