@@ -10,7 +10,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        url: process.env.PROVIDER_RPC_URL || '',
+        url: process.env.MAINNET_RPC || '',
         blockNumber: 15647465,
       },
     },
