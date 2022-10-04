@@ -10,26 +10,34 @@ The script has been created following the [governance documentation](https://doc
 
 This project requires Node.js and NPM. [Installation guide](https://nodejs.org/en/download/)
 
-## Configuration
-
-You'd need to configure an RPC endpoint and the wallet address that will submit the proposal. Rename `.env.example` to `.env` and enter the details in the file.
-
 ## Testing
 
-To simulate the full lifecycle of the proposal, configure the following parameters in the `.env` file:
+The `test/simulate-proposal-process.ts` file simulates the whole lifecycle of the proposal, from sending it, voting, queue and execution.
 
-- `MAINNET_RPC` with and endpoint from Infura/Alchemy/Chainstack.
-- `PROVIDER_RPC_URL` set as `http://127.0.0.1:8545`
+Before running the test, rename `.env.example` to `.env` and enter following params:
+
 - `SIGNER` wallet address that will send the proposal. Must have 2.5Mill UNI.
-- `VOTER` wallet address of a voter. Must have UNI tokens
 
-Once configured, run `npx hardhat node`, which will fork mainnet from the block number indicated in the `hardhat.config.ts` file, and start a local node running on `127.0.0.1:8545`.
+Once configured, run `npx hardhat test`, to run the whole lifecycle script. You'll see the progress in the terminal and, if everything goes write you'll see something like this:
+\*sh
 
-In a separate terminal, run `npm run test` to run the `simulate-proposal-process.ts` test script. You'll see the progress in the terminal.
+```
+....
+Proposal executed? :>>  true
+✅ All good.
+
+```
 
 ## Run script
 
+Before running the script to send the proposal, rename `.env.example` to `.env` and enter following params:
+
+- `SIGNER` wallet address that will send the proposal. Must have 2.5Mill UNI.
+- `MAINNET_RPC`: and RPC enpoint of the Ethereum mainnet. You can get one from Chainstack/Alchemy/Infura
+
 To execute the proposal script, run `npm start`. This will execute the script using **ts-node** via `npx` so it'll require you to be online.
+
+You'll see the progress in the console with a transaction id that you can search in [Etherscan](https://etherscan.io/)
 
 <!-- LICENSE -->
 
