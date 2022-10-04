@@ -1641,8 +1641,510 @@ const ENS_PUBLIC_RESOLVER_ABI = [
   },
 ]
 
+const UNI_ABI = [
+  {
+    inputs: [
+      { internalType: 'address', name: 'account', type: 'address' },
+      { internalType: 'address', name: 'minter_', type: 'address' },
+      {
+        internalType: 'uint256',
+        name: 'mintingAllowedAfter_',
+        type: 'uint256',
+      },
+    ],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'constructor',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'spender',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'Approval',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'delegator',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'fromDelegate',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'toDelegate',
+        type: 'address',
+      },
+    ],
+    name: 'DelegateChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'delegate',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'previousBalance',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'newBalance',
+        type: 'uint256',
+      },
+    ],
+    name: 'DelegateVotesChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'minter',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'newMinter',
+        type: 'address',
+      },
+    ],
+    name: 'MinterChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'address', name: 'from', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'to', type: 'address' },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'Transfer',
+    type: 'event',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'DELEGATION_TYPEHASH',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'DOMAIN_TYPEHASH',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'PERMIT_TYPEHASH',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      { internalType: 'address', name: 'account', type: 'address' },
+      { internalType: 'address', name: 'spender', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { internalType: 'address', name: 'spender', type: 'address' },
+      { internalType: 'uint256', name: 'rawAmount', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint32', name: '', type: 'uint32' },
+    ],
+    name: 'checkpoints',
+    outputs: [
+      { internalType: 'uint32', name: 'fromBlock', type: 'uint32' },
+      { internalType: 'uint96', name: 'votes', type: 'uint96' },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [{ internalType: 'address', name: 'delegatee', type: 'address' }],
+    name: 'delegate',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { internalType: 'address', name: 'delegatee', type: 'address' },
+      { internalType: 'uint256', name: 'nonce', type: 'uint256' },
+      { internalType: 'uint256', name: 'expiry', type: 'uint256' },
+      { internalType: 'uint8', name: 'v', type: 'uint8' },
+      { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+      { internalType: 'bytes32', name: 's', type: 'bytes32' },
+    ],
+    name: 'delegateBySig',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'delegates',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'getCurrentVotes',
+    outputs: [{ internalType: 'uint96', name: '', type: 'uint96' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      { internalType: 'address', name: 'account', type: 'address' },
+      { internalType: 'uint256', name: 'blockNumber', type: 'uint256' },
+    ],
+    name: 'getPriorVotes',
+    outputs: [{ internalType: 'uint96', name: '', type: 'uint96' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'minimumTimeBetweenMints',
+    outputs: [{ internalType: 'uint32', name: '', type: 'uint32' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { internalType: 'address', name: 'dst', type: 'address' },
+      { internalType: 'uint256', name: 'rawAmount', type: 'uint256' },
+    ],
+    name: 'mint',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'mintCap',
+    outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'minter',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'mintingAllowedAfter',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'name',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'nonces',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'numCheckpoints',
+    outputs: [{ internalType: 'uint32', name: '', type: 'uint32' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { internalType: 'address', name: 'owner', type: 'address' },
+      { internalType: 'address', name: 'spender', type: 'address' },
+      { internalType: 'uint256', name: 'rawAmount', type: 'uint256' },
+      { internalType: 'uint256', name: 'deadline', type: 'uint256' },
+      { internalType: 'uint8', name: 'v', type: 'uint8' },
+      { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+      { internalType: 'bytes32', name: 's', type: 'bytes32' },
+    ],
+    name: 'permit',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [{ internalType: 'address', name: 'minter_', type: 'address' }],
+    name: 'setMinter',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { internalType: 'address', name: 'dst', type: 'address' },
+      { internalType: 'uint256', name: 'rawAmount', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      { internalType: 'address', name: 'src', type: 'address' },
+      { internalType: 'address', name: 'dst', type: 'address' },
+      { internalType: 'uint256', name: 'rawAmount', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+]
+const TIMELOCK_ABI = [
+  'function executeTransaction(address target, uint256 value, string signature, bytes data, uint256 eta) payable returns (bytes)',
+  'function acceptAdmin()',
+  'function pendingAdmin() view returns (address)',
+  'function queueTransaction(address target, uint256 value, string signature, bytes data, uint256 eta) returns (bytes32)',
+  'function setPendingAdmin(address pendingAdmin_)',
+  'function cancelTransaction(address target, uint256 value, string signature, bytes data, uint256 eta)',
+  'function delay() view returns (uint256)',
+  'function MAXIMUM_DELAY() view returns (uint256)',
+  'function MINIMUM_DELAY() view returns (uint256)',
+  'function GRACE_PERIOD() view returns (uint256)',
+  'function setDelay(uint256 delay_)',
+  'function queuedTransactions(bytes32) view returns (bool)',
+  'function admin() view returns (address)',
+  'constructor(address admin_, uint256 delay_)',
+  'event NewAdmin(address indexed newAdmin)',
+  'event NewPendingAdmin(address indexed newPendingAdmin)',
+  'event NewDelay(uint256 indexed newDelay)',
+  'event CancelTransaction(bytes32 indexed txHash, address indexed target, uint256 value, string signature, bytes data, uint256 eta)',
+  'event ExecuteTransaction(bytes32 indexed txHash, address indexed target, uint256 value, string signature, bytes data, uint256 eta)',
+  'event QueueTransaction(bytes32 indexed txHash, address indexed target, uint256 value, string signature, bytes data, uint256 eta)',
+]
+
+const ENS_RECORD_KEY = `Matter Labs Uni v3 Additional Use Grant`
+const ENS_RECORD_VALUE = `Matter Labs is granted an additional use grant to use the Uniswap V3 Core software code (which is made available to Matter Labs subject to license available at https://github.com/Uniswap/v3-core/blob/main/LICENSE (the “Uniswap Code”)). As part of this additional use grant, Matter Labs receives license to use the Uniswap Code for the purposes of a full deployment of the Uniswap Protocol v3 onto the zkSync blockchain. Matter Labs is permitted to use subcontractors to do this work. This license is conditional on Matter Labs complying with the terms of the Business Source License 1.1, made available at https://github.com/Uniswap/v3-core/blob/main/LICENSE.)`
+
+const PROPOSAL_BODY = `# Deploy Uniswap V3 on zkSync ## FranklinDAO (Prev. Penn Blockchain) is creating this proposal in partnership with Matter Labs to Deploy Uniswap V3 on zkSync.
+
+Matter Labs: @zkSync
+
+**Proposal History**
+
+The [consensus check](https://snapshot.org/#/uniswap/proposal/0xe6ad2033b04559b3db6be7fa9993f05ee68f43f1061c632382c88e367e76bfb1) passed with 24M (~100%) YES votes. The [temperature check](https://snapshot.org/#/uniswap/proposal/0xab1dbb6e3486073b81cc64b81d15d24a7bf82efcfc94e533de0779250df06ba9) passed with 15M (~100%) YES votes.
+
+**Summary**
+
+To support Uniswap's multichain mission and expand cross-chain experiences, we propose the deployment of Uniswap V3 to zkSync 2.0 on behalf of the community.
+
+-   zkSync ecosystem has over [100 projects](https://ecosystem.zksync.io/) committed to launching on mainnet, including top DeFi protocols, infrastructure, on/off ramps, etc.
+
+-   Deploying on zkSync will onboard new users & increase user activity on Uniswap by decreasing costs compared to Ethereum without security degradation
+
+-   zkSync shares Ethereum's ethos as a free open-source project with a commitment to personal sovereignty, decentralization and community ownership
+
+We welcome feedback from the community on the proposal, including suggestions on how it can be improved.
+
+**About zkSync**
+
+zkSync 2.0 is a [ZK rollup](https://ethereum.org/en/developers/docs/scaling/zk-rollups/) that supports generalized EVM compatibility for the Ethereum blockchain. The primary benefit of zkSync 2.0 is that developers who have created EVM dApps can port to zkSync 2.0 effortlessly and realize significantly lower gas fees and more transactions per second without compromising on security.
+
+zkSync 2.0 is a significant leap forward in Layer 2 technologies with long awaited improvements and benefits for Ethereum developers:
+
+-   EVM Compatible - supporting generalized EVM smart contracts on a ZK rollup making it easy to deploy existing dApps 
+
+-   ToolChain Compatible - able to port smart contracts with existing tools
+
+-   Ethos Compatible - aligned with the ethos of decentralization and open-source
+
+-   Certainty - using zero knowledge proofs offering certainty of security not probability 
+
+-   Future Proof - ecosystem partners that adopt zkSync 2.0 now will enjoy all future improvements without the need to change their code
+
+There is broad consensus that ZK rollups are the endgame for scaling Ethereum. zkSync's EVM compatibility, ease of use, and composability will accelerate developer and retail adoption. Top researchers including [Vitalik Buterin](https://youtu.be/XW0QZmtbjvs) recognize ZK rollups as the long term scaling solution.
+
+**Security & Bridges**
+
+ZK rollups are the most secure scalability solution available today as they rely purely on math to fully inherit the security of Ethereum. There is a general L1<>L2 communication bridge which will support arbitrary message passing and secured by validity proof and Ethereum consensus.
+
+Bridge validators can't pass an incorrect message or change the content, the worst case would be to censor everyone. Importantly, we'll be building out additional safety functionality and monitoring off & on-chain activity.
+
+[Security is top of mind](https://docs.zksync.io/dev/security/approach/#_1-security-by-correctness) for zkSync. We are currently working with tier-1 auditors for zkSync 2.0 and specifically in the review process for the bridge code. Audits will be conducted before each major upgrade. Besides audits, we offer a substantial [bug bounty program](https://docs.zksync.io/dev/security/bug-bounty/).
+
+**Proposal**
+
+There's significant value in Uniswap being available on an EVM compatible ZK rollup. Deploying early on zkSync helps solidify Uniswap's place as the number one DEX and a thought leader.
+
+Importantly, it will help grow a large list of projects that can be built on Uniswap V3. Established projects like Argent, Curve, and Yearn have committed to launch along with [over 100 more projects](https://ecosystem.zksync.io/) and big infrastructure players like Chainlink, The Graph, Gnosis are supporting the ecosystem. Growing the public smart contract libraries interfacing and using Uniswap v3 codebase will solidify Uniswap's influence in the Ethereum ecosystem which is moving on to ZK rollups.
+
+While the zkSync ecosystem is already experiencing very fast growth, the team is planning  programs to attract and fund innovative projects and research partners to accelerate the network's adoption and in turn, Uniswap's usage.
+
+**License Exemption**
+
+We are requesting an exemption via an Additional Use Grant (license change enacted via the ENS domain uniswap.eth) that would allow Matter Labs to use the Licensed Work to deploy it on zkSync provided that the deployment is subject to Ethereum layer 1 Uniswap Protocol governance and control. Uniswap V3 will be deployed on zkSync by Matter Labs through the "[Deploy Uniswap V3 Script](https://github.com/Uniswap/deploy-v3#deploy-uniswap-v3-script)" albeit we may need to modify the compilation step with approval from the Uniswap Labs team.
+
+**Timeline**
+
+Following the Governance Proposal we will be ready to move forward with the Uniswap V3 deployment on zkSync.\
+zkSync has been on testnet since February 2022 and plans to launch mainnet [early October](https://blog.matter-labs.io/100-days-to-mainnet-6f230893bd73). A timely assessment of the deployment of Uniswap v3 code to zkSync is important: while deploying on zkSync is fast and easy because it's fully EVM compatible, we estimate the full effort will take 4-6 weeks given Uniswap's relevance. This allows for proper testing, communication to the community and engagement with the broader zkSync ecosystem.`
+
 export {
   GOVERNOR_BRAVO_IMPLEMENTATION_ABI,
   ENS_PUBLIC_RESOLVER_ABI,
   ENS_REGISTRY_ABI,
+  TIMELOCK_ABI,
+  UNI_ABI,
+  ENS_RECORD_KEY,
+  ENS_RECORD_VALUE,
+  PROPOSAL_BODY,
 }
