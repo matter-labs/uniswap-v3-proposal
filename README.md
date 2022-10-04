@@ -18,6 +18,8 @@ Before running the test, rename `.env.example` to `.env` and enter following par
 
 - `SIGNER` wallet address that will send the proposal. Must have 2.5Mill UNI.
 
+**Important**: this test runs against a mainnet fork from block 15647465. You can change this block in the `hardhat.confg.ts` file.
+
 Once configured, run `npx hardhat test`, to run the whole lifecycle script. You'll see the progress in the terminal and, if everything goes write you'll see something like this:
 \*sh
 
