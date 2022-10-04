@@ -92,13 +92,9 @@ describe('Simulate Uniswap proposal lifecycle', function () {
     console.log('currentProposalCount', currentProposalCount)
     expect(currentProposalCount).to.eq(24)
 
-    //
-
+    // impersonate user that will send proposal
     const proposeWallet = process.env.SIGNER || ''
-    const impersonatedSigner = await ethers.getImpersonatedSigner(
-      // @ts-ignore
-      process.env.SIGNER
-    )
+    const impersonatedSigner = await ethers.getImpersonatedSigner(proposeWallet)
 
     let blockNumber = (await provider.getBlock('latest')).number
     console.log('Current blockNumber', blockNumber)

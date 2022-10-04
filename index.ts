@@ -21,9 +21,7 @@ const PUBLIC_ENS_RESOLVER_ADDRESS: string =
   '0x4976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41'
 
 // RPC loaded from env file
-const provider = new ethers.providers.JsonRpcProvider(
-  process.env.PROVIDER_RPC_URL
-)
+const provider = new ethers.providers.JsonRpcProvider(process.env.MAINNET_RPC)
 // signer loaded from env file
 const signer = provider.getSigner(process.env.SIGNER)
 
