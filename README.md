@@ -16,7 +16,7 @@ This project requires Node.js and NPM. [Installation guide](https://nodejs.org/e
 
 Install all dependencies with `npm i`
 
-## Testing
+## Testing: simulate proposal lifecycle
 
 The `test/simulate-proposal-process.ts` file simulates the whole lifecycle of the proposal, from sending it, voting, queue and execution.
 
@@ -35,7 +35,7 @@ Proposal executed? :>>  true
 License in ENS now contains text:
 ```
 
-## Run script
+## Run script: send the proposal
 
 **To actually send a proposal, you need a wallet with 2.5 million UNI tokens**
 
