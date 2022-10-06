@@ -2,7 +2,17 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { Contract, ethers } from 'ethers'
+const WALLET_PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY
+const MAINNET_RPC = process.env.MAINNET_RPC
+if (!WALLET_PRIVATE_KEY) {
+  throw new Error('Wallet private key not provided in env file')
+}
+
+if (!MAINNET_RPC) {
+  throw new Error('RPC  not provided in env file')
+}
+
+import { Contract, ethers, Wallet } from 'ethers'
 import { namehash } from '@ethersproject/hash'
 import { Interface } from '@ethersproject/abi'
 // note: contract ABIs should be imported via etherscan
@@ -21,9 +31,9 @@ const PUBLIC_ENS_RESOLVER_ADDRESS: string =
   '0x4976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41'
 
 // RPC loaded from env file
-const provider = new ethers.providers.JsonRpcProvider(process.env.MAINNET_RPC)
-// signer loaded from env file
-const signer = provider.getSigner(process.env.SIGNER)
+const provider = new ethers.providers.JsonRpcProvider(MAINNET_RPC)
+//
+const signer = new Wallet(WALLET_PRIVATE_KEY, provider)
 
 const ensPublicResolverInterface = new Interface(ENS_PUBLIC_RESOLVER_ABI)
 const setTextCalldata = ensPublicResolverInterface.encodeFunctionData(
@@ -43,7 +53,7 @@ const setTextCalldata = ensPublicResolverInterface.encodeFunctionData(
 const governorBravo = new Contract(
   GOVERNOR_BRAVO_ADDRESS,
   GOVERNOR_BRAVO_IMPLEMENTATION_ABI,
-  provider
+  signer
 )
 
 // the ordered list of target addresses for calls to be made
@@ -67,11 +77,23 @@ const description = PROPOSAL_BODY
 
 async function main() {
   try {
-    const txResponse: ethers.providers.TransactionResponse = await governorBravo
-      .connect(signer)
-      .propose(targets, values, signatures, calldatas, description)
+    // prepare transaction data
+    const unsignedTrx = await governorBravo.populateTransaction.propose(
+      targets,
+      values,
+      signatures,
+      calldatas,
+      description
+    )
+    console.log('Transaction ready to be sent!')
+
+    // submit transaction
+    const txResponse: ethers.providers.TransactionResponse =
+      await signer.sendTransaction(unsignedTrx)
     console.log(`Proposal transaction sent: ${txResponse.hash}`)
+    // wait for block
     await txResponse.wait(1)
+
     console.log(
       `Proposal has been mined at blocknumber: ${txResponse.blockNumber}, transaction hash: ${txResponse.hash}`
     )
