@@ -6,9 +6,15 @@ This repo contains the script to submit the governance proposal to deploy Uniswa
 
 The script has been created following the [governance documentation](https://docs.uniswap.org/protocol/guides/governance/liscense-modifications/) and includes a license modification to allow Matter Labs to deploy Uniswap.
 
+## Proposal information
+
+Proposal information can be found at the end of the `utils.ts` file.
+
 ## Prerequisites
 
 This project requires Node.js and NPM. [Installation guide](https://nodejs.org/en/download/)
+
+Install all dependencies with `npm i`
 
 ## Testing
 
@@ -31,9 +37,11 @@ License in ENS now contains text:
 
 ## Run script
 
+**To actually send a proposal, you need a wallet with 2.5 million UNI tokens**
+
 Before running the script to send the proposal, rename `.env.example` to `.env` and enter following params:
 
-- `SIGNER` wallet address that will send the proposal. Must have 2.5Mill UNI.
+- `WALLET_PRIVATE_KEY` wallet **private key** that will sign the transaction to send the proposal. Must have 2.5Mill UNI.
 - `MAINNET_RPC`: and RPC enpoint of the Ethereum mainnet. You can get one from Chainstack/Alchemy/Infura
 
 To execute the proposal script, run `npm start`. This will execute the script using **ts-node** via `npx` so it'll require you to be online.
