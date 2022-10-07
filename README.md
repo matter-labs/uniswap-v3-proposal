@@ -1,14 +1,14 @@
 # Uniswap v3 on zkSync
 
-🚧 work in progress 🚧
-
 This repo contains the script to submit the governance proposal to deploy Uniswap v3 on zkSync.
 
 The script has been created following the [governance documentation](https://docs.uniswap.org/protocol/guides/governance/liscense-modifications/) and includes a license modification to allow Matter Labs to deploy Uniswap.
 
 ## Proposal information
 
-Proposal information can be found at the end of the `utils.ts` file.
+Proposal information can be found at the end of the `utils.ts` file, an includes the new license record and the description.
+
+On-Chain proposal: https://app.uniswap.org/#/vote/2/25
 
 ## Prerequisites
 
